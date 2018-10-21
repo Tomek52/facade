@@ -56,7 +56,18 @@ class Mortgage
 public:
   bool IsEligible(Customer cust, int amount)
   {
-      return true;
+    cout << cust.Name() << " applies for a loan for $" << amount <<endl;
+    bool eligible = true;
+ 
+    eligible = bank_.HasSufficientSavings(cust, amount);
+ 
+    if(eligible)
+      eligible = loan_.HasGoodCredit(cust, amount);
+ 
+    if(eligible)
+      eligible = credit_.HasGoodCredit(cust, amount);
+ 
+    return eligible;
   }
  
 private:
